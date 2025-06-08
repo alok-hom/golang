@@ -50,13 +50,13 @@ jobs:
       run: cd go && go mod verify
     
     - name: Go test
-      run: cd go && go test -json > TestResults-${{ matrix.go-version }}.json
+      run: cd go && go test -json > TestResults-1.21.x.json
 
     - name: Upload Go test results
       uses: actions/upload-artifact@v4
       with:
-        name: Go-results-${{ matrix.go-version }}
-        path: TestResults-${{ matrix.go-version }}.json
+        name: Go-results-1.21.x
+        path: TestResults-1.21.x.json
 
     - name: Build
       run: cd go && go build -v .
@@ -72,6 +72,12 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
+
+    - uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
+
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get GKE credentials
