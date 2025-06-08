@@ -32,6 +32,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - uses: 'google-github-actions/auth@v2'
+      with:
+        project_id:  ${{ secrets.GKE_PROJECT }}
+        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
 
     - name: Set up Go '1.21.x'
       uses: actions/setup-go@v5
@@ -77,11 +81,6 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
-
-    - uses: 'google-github-actions/auth@v2'
-      with:
-        project_id:  ${{ secrets.GKE_PROJECT }}
-        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get GKE credentials
