@@ -18,6 +18,7 @@ env:
   GKE_ZONE: europe-west1-d   # Add your cluster zone here.
   DEPLOYMENT_NAME: dev # Add your deployment name here.
   IMAGE: web
+  G_CRED: ${{ secrets.GOOGLE_CREDENTIALS }}
 
 
 jobs:
@@ -37,7 +38,7 @@ jobs:
         # project_id: 'alokproject'
         # service_account: 'githubactions2@alokproject-201614.iam.gserviceaccount.com'
         # workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
+        credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
 
 
     - name: Set up Go '1.21.x'
