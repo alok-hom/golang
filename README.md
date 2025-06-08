@@ -1,2 +1,2 @@
 # golang
-goprg
+a program in go
