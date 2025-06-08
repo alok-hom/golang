@@ -35,8 +35,10 @@ jobs:
     - uses: 'google-github-actions/auth@v2'
       with:
         # project_id: 'alokproject'
-        service_account: 'githubactions2@alokproject-201614.iam.gserviceaccount.com'
-        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
+        # service_account: 'githubactions2@alokproject-201614.iam.gserviceaccount.com'
+        # workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
+
 
     - name: Set up Go '1.21.x'
       uses: actions/setup-go@v5
