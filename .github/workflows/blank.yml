@@ -78,8 +78,10 @@ jobs:
 
 
     # Setup gcloud CLI
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: alokproject
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
@@ -94,11 +96,11 @@ jobs:
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get GKE credentials
-      uses: google-github-actions/get-gke-credentials@v1
+      uses: google-github-actions/get-gke-credentials@v2
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        project_id: alokproject
+        project_id: 'alokproject-201614'
 
     # Build the Docker image
     - name: Build
