@@ -120,11 +120,11 @@ jobs:
     #     docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v3
+      uses: docker/login-action@v1
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        password: ${{ env.GHCR_PASS }}
+        password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Build and push
       uses: docker/build-push-action@v5
