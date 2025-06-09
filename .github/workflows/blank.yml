@@ -18,6 +18,7 @@ env:
   GKE_ZONE: europe-west1-d   # Add your cluster zone here.
   DEPLOYMENT_NAME: dev # Add your deployment name here.
   IMAGE: web
+  GHCR_PASS: ${{ secrets.GHCR_TOKEN }}
 
 
 jobs:
@@ -123,7 +124,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        password: ${{ secrets.GHCR_TOKEN }}
+        password: ${{ env.GHCR_PASS }}
 
     - name: Build and push
       uses: docker/build-push-action@v5
