@@ -43,15 +43,6 @@ jobs:
         # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
         # export_environment_variables: true
 
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Get GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-        project_id: 'alokproject-201614'
-
-
     - name: Set up Go '1.21.x'
       uses: actions/setup-go@v5
       with:
@@ -92,11 +83,19 @@ jobs:
       with:
         project_id: alokproject
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    # - name: 'Use gcloud CLI'
+    #   run: 'gcloud info'
       # with:
       #   service_account_key: ${{ secrets.GKE_SA_KEY }}
       #   project_id: ${{ env.PROJECT_ID }}
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - name: Get GKE credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        project_id: 'alokproject'
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
