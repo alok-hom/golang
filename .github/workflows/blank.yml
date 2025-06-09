@@ -43,6 +43,15 @@ jobs:
         # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
         # export_environment_variables: true
 
+    # Get the GKE credentials so we can deploy to the cluster
+    - name: Get GKE credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        project_id: 'alokproject-201614'
+
+
     - name: Set up Go '1.21.x'
       uses: actions/setup-go@v5
       with:
@@ -94,13 +103,6 @@ jobs:
     - run: |-
         gcloud --quiet auth configure-docker
 
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Get GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-        project_id: 'alokproject-201614'
 
     # Build the Docker image
     - name: Build
