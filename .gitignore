@@ -34,5 +34,5 @@ go.work.sum
 # # Ignore generated credentials from google-github-actions/auth
 gha-creds-*.json
 
-# # Ignore generated kubeconfig from google-github-actions/get-gke-credentials
-# gha-kubeconfig-*
+# Ignore generated kubeconfig from google-github-actions/get-gke-credentials
+gha-kubeconfig-*

@@ -18,7 +18,6 @@ env:
   GKE_ZONE: europe-west1-d   # Add your cluster zone here.
   DEPLOYMENT_NAME: dev # Add your deployment name here.
   IMAGE: web
-  G_CRED: ${{ secrets.GOOGLE_CREDENTIALS }}
 
 
 jobs:
