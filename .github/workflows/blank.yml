@@ -105,18 +105,38 @@ jobs:
         gcloud --quiet auth configure-docker
 
 
-    # Build the Docker image
-    - name: Build
-      run: |-
-        cd go && docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
+    # # Build the Docker image
+    # - name: Build
+    #   run: |-
+    #     cd go && docker build \
+    #       --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+    #       --build-arg GITHUB_SHA="$GITHUB_SHA" \
+    #       --build-arg GITHUB_REF="$GITHUB_REF" \
 
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |-
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+    # # Push the Docker image to Google Container Registry
+    # - name: Publish
+    #   run: |-
+    #     docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GHCR_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: go/.
+        platforms: linux/amd64
+        push: true
+        tags: |
+          #user/app:latest
+          #user/app:1.0.0
+          ghcr.io/${{ github.repository_owner }}/web:latest
+          ghcr.io/${{ github.repository_owner }}/web:1.0.0
+
 
     # Set up kustomize
     - name: Set up Kustomize
