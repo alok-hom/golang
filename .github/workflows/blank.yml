@@ -32,16 +32,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        create_credentials_file: true
-        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github-new/providers/github-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
-        # project_id: 'alokproject-201614'
-        service_account: 'githubactions4@alokproject-201614.iam.gserviceaccount.com'
-        # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
-        # export_environment_variables: true
 
     - name: Set up Go '1.21.x'
       uses: actions/setup-go@v5
@@ -76,6 +66,16 @@ jobs:
     - name: Build
       run: cd go && go build -v .
 
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        create_credentials_file: true
+        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github-new/providers/github-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
+        # project_id: 'alokproject-201614'
+        service_account: 'githubactions4@alokproject-201614.iam.gserviceaccount.com'
+        # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
+        # export_environment_variables: true
 
     # Setup gcloud CLI
     - name: Set up gcloud
@@ -89,12 +89,14 @@ jobs:
       #   service_account_key: ${{ secrets.GKE_SA_KEY }}
       #   project_id: ${{ env.PROJECT_ID }}
 
+
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2
+      uses: google-github-actions/get-gke-credentials@v2.1.0
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
+        # location: ${{ env.GKE_ZONE }}
+        location: europe-west1
         # project_id: 'alokproject'
 
     # Configure Docker to use the gcloud command-line tool as a credential
