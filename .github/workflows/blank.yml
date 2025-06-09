@@ -33,14 +33,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: 'google-github-actions/auth@v2'
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
       with:
-        # project_id: 'alokproject'
-        service_account: 'githubactions2@alokproject-201614.iam.gserviceaccount.com'
-        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github/providers/git-repo-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
-        credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
         create_credentials_file: true
-        export_environment_variables: true
+        workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github-new/providers/github-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
+        # project_id: 'alokproject-201614'
+        service_account: 'githubactions42@alokproject-201614.iam.gserviceaccount.com'
+        # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
+        # export_environment_variables: true
 
 
     - name: Set up Go '1.21.x'
