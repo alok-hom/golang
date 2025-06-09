@@ -39,7 +39,7 @@ jobs:
         create_credentials_file: true
         workload_identity_provider: 'projects/618195615441/locations/global/workloadIdentityPools/github-new/providers/github-1' # "projects/123456789/locations/global/workloadIdentityPools/github/providers/my-repo"
         # project_id: 'alokproject-201614'
-        service_account: 'githubactions42@alokproject-201614.iam.gserviceaccount.com'
+        service_account: 'githubactions4@alokproject-201614.iam.gserviceaccount.com'
         # credentials_json: ${{ env.G_CRED }} # Replace with the name of your GitHub Actions secret
         # export_environment_variables: true
 
