@@ -95,7 +95,7 @@ jobs:
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        project_id: 'alokproject'
+        # project_id: 'alokproject'
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
